@@ -16,6 +16,7 @@ Prerequisites
   * Selenium-Hub
   * bc
   * Optional: phpVirtualBox
+  * deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso)
    
 What it does
 =================
@@ -151,3 +152,8 @@ Known Problems
 
 XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp\rename.bat``` to set the correct name. Restart the VM afterwards. This is only needed if you run more than one instance of the same Appliance.
 
+Acknowledgements
+================
+
+  * deuac.iso comes from https://github.com/tka/SeleniumBox
+  * Inspired by https://github.com/xdissent/ievms
