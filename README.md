@@ -14,7 +14,6 @@ Prerequisites
   * VirtualBox (tested with 4.3)
   * VirtualBox Extension Pack
   * Selenium-Hub
-  * bc
   * deuac.iso
   * IEDriverServer (for Selenium)
   * Java JRE (for Selenium)
@@ -27,12 +26,15 @@ What it does
   * Import modern.ie Appliances to VirtualBox
   * Configure VM Network-Settings
   * Configure VM RDP-Port-Setting (VRDE)
+  * Configure VM Clipboard behaviour
   * Disable UAC
   * Disable Windows-Firewall
   * Rename the VM (Hostname)
   * Configures IE Protected-Mode to work with Selenium
   * Disables IE Cache
   * Install Java
+  * Install Firefox
+  * Install Chrome
   * Install Selenium
   * Reports via E-Mail
 
@@ -106,10 +108,10 @@ deuac_iso="/opt/Tools/deuac.iso"
 Path and filename for deuac.iso (a bootable CD-Image to disable UAC so we can install Java without Problems).
 
 ```
-java_path="/opt/Tools/"
+tools_path="/opt/Tools/"
 ```
 
-Path to ```java_exe```.
+Path to ```java_exe```, ```firefox_exe``` and ```chrome_exe``` (Location of Installers on VM-Host).
 
 ```
 selenium_path="/opt/Tools/selenium_conf/"
