@@ -163,4 +163,4 @@ Acknowledgements
 
   * deuac.iso comes from https://github.com/tka/SeleniumBox
   * Inspired by https://github.com/xdissent/ievms
-  * Thanks to @dsuckau for the Selenium-Config Part
+  * Thanks to https://github.com/dsuckau for the Selenium-Config Part
