@@ -46,6 +46,7 @@ Getting started
   * Download the Appliance(s) you want to use from http://www.modern.ie/ and put the extracted OVA-Files on your Server. 
   * Get the Windows Java (JRE) Installer and Selenium Server Standalone (JAR) and put them beside the OVA-Files (or somewhere else).
   * Clone this repository
+  * Edit the Selenium Config-Files (./Tools/Selenium_conf/*/config.json)
   * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details)
   * chmod +x mkvm.sh
   * Run mkvm.sh
