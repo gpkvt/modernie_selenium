@@ -56,62 +56,92 @@ By default the Script assumes that your VirtualBox-Machines are placed in ```/sr
 
 To do so simply edit ```mkvm.sh```:
 
-```java_exe="jre-7u55-windows-i586.exe"```
+```
+java_exe="jre-7u55-windows-i586.exe"
+```
 
 Filename of your Java-Installer.
 
-```selenium_jar="selenium-server-standalone-2.41.0.jar"```
+```
+selenium_jar="selenium-server-standalone-2.41.0.jar"
+```
 
 Filename of your Selenium-Server.
 
-```nic_bridge="eth2"```
+```
+nic_bridge="eth2"
+```
 
 Name of your Network-Interface to use as bridge for your VM.
 
-```vm_path="/srv/VMs/"```
+```
+vm_path="/srv/VMs/"
+```
 
 Path where to put your VMs.
 
-```vm_mem="768"```
+```
+vm_mem="768"
+```
 
 Amount of memory (RAM) for Windows Vista, 7 and 8.x VMs in MB.
 
-```vm_mem_xp="512"```
+```
+vm_mem_xp="512"
+```
 
 Amount of memory (RAM) for Windows XP VMs in MB.
 
-```deuac_iso="/opt/Tools/deuac.iso"```
+```
+deuac_iso="/opt/Tools/deuac.iso"
+```
 
 Path and filename for deuac.iso (a bootable CD-Image to disable UAC so we can install Java without Problems).
 
-```java_path="/opt/Tools/"```
+```
+java_path="/opt/Tools/"
+```
 
 Path to ```java_exe```.
 
-```selenium_path="/opt/Tools/selenium_conf/"```
+```
+selenium_path="/opt/Tools/selenium_conf/"
+```
 
 Path to your Selenium-Config-Files. It's important that you keep the folder structure below this point, otherwise the config will not be copied to the VMs (or the wrong Config goes to the wrong Machines).
 
-```ie_cache_reg="/opt/Tools/ie_disablecache.reg"```
+```
+ie_cache_reg="/opt/Tools/ie_disablecache.reg"
+```
 
 Path and filename to ```ie_disablecache.reg``` (Disables Internet Explorer Cache).
 
-```ie_protectedmode_reg="/opt/Tools/ie_protectedmode.reg"```
+```
+ie_protectedmode_reg="/opt/Tools/ie_protectedmode.reg"
+```
 
 Path and filename to ```ie_protectedmode.reg``` (Enables Protected Mode for all IE Security Zones). 
 
-```log_path="/home/vbox/"```
+```
+log_path="/home/vbox/"
+```
 
 Path to the (temporary) Logfile.
 
-```vbox_user="vbox"```
+```
+vbox_user="vbox"
+```
 
 Username of VirtualBox-User.
 
-```mailto="root@example.com"```
+```
+mailto="root@example.com"
+```
 
 E-Mail-Adress to send logfile to.
 
-```create_snapshot=False```
+```
+create_snapshot=False
+```
 
 If ```True``` a snapshot will be created after all changes have been made.
