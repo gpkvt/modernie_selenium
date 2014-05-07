@@ -6,20 +6,22 @@
 
 # Config; See readme for details.
 java_exe="jre-7u55-windows-i586.exe"
+firefox_exe="Firefox Setup 24.5.0esr.exe"
+chrome_exe="GoogleChromeStandaloneEnterprise.msi"
 selenium_jar="selenium-server-standalone-2.41.0.jar"
 
-nic_bridge="eth0"
+nic_bridge="eth2"
 vm_path="/srv/VMs/"
 vm_mem="768"
 vm_mem_xp="512"
 deuac_iso="/opt/Tools/deuac.iso"
-java_path="/opt/Tools/"
+tools_path="/opt/Tools/"
 selenium_path="/opt/Tools/selenium_conf/"
 ie_cache_reg="/opt/Tools/ie_disablecache.reg"
 ie_protectedmode_reg="/opt/Tools/ie_protectedmode.reg"
 log_path="/home/vbox/"
 vbox_user="vbox"
-mailto="root@example.com"
+mailto="root"
 create_snapshot=False
 
 # Basic-Checks.
@@ -40,11 +42,6 @@ fi
 
 if [ ! $(which VBoxManage) ]; then
   echo "VBoxManage not found..."
-  exit 1
-fi
-
-if [ ! $(which bc) ]; then
-  echo "bc not found, try apt-get install bc..."
   exit 1
 fi
 
@@ -198,16 +195,28 @@ set_network_config() {
 
 # Find and set free Port for RDP-Connection.
 set_rdp_config() {
-  vrdeport=$(find "${vm_path}" -name *.vbox -print0 | xargs -0 grep "TCP/Ports" | awk -F'"' '{print $4}' | sort | tail -n1 | xargs -I % echo %+1 | bc)
+  log "Setting VRDE-Port ${vrdeport}..."
+  vrdeports=$(find "/srv/VMs/" -name *.vbox -print0 | xargs -0 grep "TCP/Ports" | awk -F'"' '{print $4}' | sort)
+  for ((i=9000;i<=10000;i++)); do
+    echo ${vrdeports} | grep -q ${i}
+    if [[ $? -ne 0 ]]; then
+      vrdeport=$i
+      break
+    fi
+  done
+
   if [ -z "${vrdeport}" ]; then
     vrdeport="9000"
   fi
   if [[ ${vrdeport} < 9000 ]]; then
     vrdeport="9000"
   fi
-  log "Setting VRDE-Port ${vrdeport}..."
-  VBoxManage modifyvm "${vm_name}" --vrde on --vrdeport ${vrdeport}
-  chk error $? "Could not set VRDE-Port"
+  if [ "${vrdeport}" = "10000" ]; then
+    chk skip $? "Could not find free VRDE-Port"
+  else
+    VBoxManage modifyvm "${vm_name}" --vrde on --vrdeport ${vrdeport}
+    chk error $? "Could not set VRDE-Port"
+  fi
 }
 
 # Internal: Helper-Functions to disable UAC (called by disable_uac)
@@ -298,9 +307,27 @@ set_ie_config() {
 # Install Java (required by Selenium); We don't use --wait-exit as it may cause trouble with XP-VMs, instead we just wait some time to ensure the Java-Installer can finish.
 install_java() {
   log "Installing Java..."
-  VBoxManage guestcontrol "${vm_name}" copyto ${java_path}${java_exe} C:/Temp/ --username 'IEUser' --password 'Passw0rd!'
+  VBoxManage guestcontrol "${vm_name}" copyto ${tools_path}${java_exe} C:/Temp/ --username 'IEUser' --password 'Passw0rd!'
   VBoxManage guestcontrol "${vm_name}" execute --image "C:/Temp/${java_exe}" --username 'IEUser' --password 'Passw0rd!' -- /s
   chk error $? "Could not install Java"
+  waiting 120
+}
+
+# Install Firefox.
+install_firefox() {
+  log "Installing Firefox..."
+  VBoxManage guestcontrol "${vm_name}" copyto "${tools_path}${firefox_exe}" C:/Temp/ --username 'IEUser' --password 'Passw0rd!'
+  VBoxManage guestcontrol "${vm_name}" execute --image "C:/Temp/${firefox_exe}" --username 'IEUser' --password 'Passw0rd!' -- /S
+  chk error $? "Could not install Firefox"
+  waiting 120
+}
+
+# Install Chrome.
+install_chrome() {
+  log "Installing Chrome..."
+  VBoxManage guestcontrol "${vm_name}" copyto "${tools_path}${chrome_exe}" C:/Temp/ --username 'IEUser' --password 'Passw0rd!'
+  VBoxManage guestcontrol "${vm_name}" execute --image "C:/Windows/System32/msiexec.exe" --username 'IEUser' --password 'Passw0rd!' -- /qn /i C:\\Temp\\${chrome_exe}
+  chk error $? "Could not install Chrome"
   waiting 120
 }
 
@@ -445,6 +472,13 @@ rename_vm() {
   waiting 5
 }
 
+configure_clipboard() {
+  log "Changing Clipboard-Mode to bidirectional..."
+  VBoxManage controlvm "${vm_name}" clipboard bidirectional
+  chk skip $? "Could not set Clipboard-Mode"
+  waiting 5
+}
+
 # Check if --delete was given as second parameter to this script. The VM-Name is expected to be the third parameter.
 # If no VM-Name is given --delete will be ignored.
 if [ "${2}" = "--delete" ]; then
@@ -467,7 +501,10 @@ create_temp_path
 rename_vm
 set_ie_config
 install_java
+install_firefox
+install_chrome
 install_selenium
+configure_clipboard
 
 if [ "${create_snapshot}" = "True" ]; then
   shutdown_vm
