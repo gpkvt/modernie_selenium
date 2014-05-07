@@ -15,9 +15,11 @@ Prerequisites
   * VirtualBox Extension Pack
   * Selenium-Hub
   * bc
-  * Optional: phpVirtualBox
   * deuac.iso
-  * IEDriverServer
+  * IEDriverServer (for Selenium)
+  * Java JRE (for Selenium)
+  * Selenium Standalone Server
+  * Optional: phpVirtualBox
    
 What it does
 =================
