@@ -16,7 +16,8 @@ Prerequisites
   * Selenium-Hub
   * bc
   * Optional: phpVirtualBox
-  * deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso)
+  * deuac.iso
+  * IEDriverServer
    
 What it does
 =================
@@ -45,6 +46,8 @@ Getting started
 
   * Download the Appliance(s) you want to use from http://www.modern.ie/ and put the extracted OVA-Files on your Server. 
   * Get the Windows Java (JRE) Installer and Selenium Server Standalone (JAR) and put them beside the OVA-Files (or somewhere else).
+  * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso)
+  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver)  and put it in ```Tools/selenium_conf/```
   * Clone this repository
   * Edit the Selenium Config-Files (./Tools/Selenium_conf/*/config.json)
   * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details)
