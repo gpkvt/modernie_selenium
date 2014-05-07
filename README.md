@@ -51,10 +51,10 @@ Getting started
   * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso)
   * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver)  and put it in ```Tools/selenium_conf/```
   * Clone this repository
-  * Edit the Selenium Config-Files (./Tools/Selenium_conf/*/config.json)
+  * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```)
   * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details)
-  * chmod +x mkvm.sh
-  * Run mkvm.sh
+  * ```chmod +x mkvm.sh```
+  * Run ```mkvm.sh /path/to/your/appliance/foobar.ova```
 
 Configure
 ================
@@ -152,6 +152,21 @@ create_snapshot=False
 ```
 
 If ```True``` a snapshot will be created after all changes have been made.
+
+Usage
+=====
+
+To import the IE6-WinXP Appliance simply run:
+
+```
+su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/xp/ie6/IE6\ -\ WinXP.ova"
+```
+
+If you already have an IE6-WinXP-Instance - and want to recreate it - run:
+
+```
+su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/xp/ie6/IE6\ -\ WinXP.ova" --delete "IE6 - WinXP"
+```
 
 Known Problems
 ==============
