@@ -145,3 +145,9 @@ create_snapshot=False
 ```
 
 If ```True``` a snapshot will be created after all changes have been made.
+
+Known Problems
+==============
+
+XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp\rename.bat``` to set the correct name. Restart the VM afterwards. This is only needed if you run more than one instance of the same Appliance.
+
