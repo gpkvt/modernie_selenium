@@ -170,6 +170,8 @@ If you already have an IE6-WinXP-Instance - and want to recreate it - run:
 su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/xp/ie6/IE6\ -\ WinXP.ova" --delete "IE6 - WinXP"
 ```
 
+We recommend to use a CronJob to recreate the VMs on a regular basis. See ```mkvm_cronjob```. To avoid too much load on the Host we use a Wrapper-Script ```mkvm_cron.sh``` so that only one Appliance gets imported after another.
+
 Known Problems
 ==============
 
