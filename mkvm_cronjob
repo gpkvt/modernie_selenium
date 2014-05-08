@@ -1,0 +1,4 @@
+# /etc/cron.d/mkvm
+# cron entry for recreate modern.ie VMs
+
+0 3 * * * root /opt/mkvm_cron.sh
