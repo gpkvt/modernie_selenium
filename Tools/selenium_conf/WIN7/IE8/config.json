@@ -4,13 +4,25 @@
         "register": true,
         "registerCycle": 5000,
         "hubPort": 4444,
-        "hubHost": "10.0.0.1"
+        "hubHost": "192.168.1.23"
     },
     "capabilities": [
         {
-            "platform": "WIN7",
+            "platform": "WINDOWS",
             "browserName": "internet explorer",
             "version": 8,
+            "maxInstances": 1,
+            "seleniumProtocol": "WebDriver"
+        },
+        {
+            "platform": "WINDOWS",
+            "browserName": "firefox",
+            "maxInstances": 1,
+            "seleniumProtocol": "WebDriver"
+        },
+        {
+            "platform": "WINDOWS",
+            "browserName": "chrome",
             "maxInstances": 1,
             "seleniumProtocol": "WebDriver"
         }
