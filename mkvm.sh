@@ -125,7 +125,7 @@ execute_os_specific() {
 check_shutdown() {
   counter=0
   echo -n "Waiting for shutdown"
-  while $(VBoxManage showinfo "${vm_name}" | grep -q 'running'); do
+  while $(VBoxManage showvminfo "${vm_name}" | grep -q 'running'); do
     echo -n "."
     sleep 1
     let counter=counter+1
@@ -322,6 +322,14 @@ install_firefox() {
   waiting 120
 }
 
+# Install Chrome-Driver for Selenium
+install_chrome_driver() {
+  log "Installing Chrome Driver..."
+  VBoxManage guestcontrol "${vm_name}" copyto "${selenium_path}chromedriver.exe" C:/Windows/system32/ --username 'IEUser' --password 'Passw0rd!'
+  chk error $? "Could not install Chrome Driver"
+  waiting 5
+}
+
 # Install Chrome.
 install_chrome() {
   log "Installing Chrome..."
@@ -329,6 +337,7 @@ install_chrome() {
   VBoxManage guestcontrol "${vm_name}" execute --image "C:/Windows/System32/msiexec.exe" --username 'IEUser' --password 'Passw0rd!' -- /qn /i C:\\Temp\\${chrome_exe}
   chk error $? "Could not install Chrome"
   waiting 120
+  install_chrome_driver
 }
 
 # Internal: Helper-Functions to Install Selenium (called by install_selenium)
@@ -370,6 +379,17 @@ config_selenium_w8() {
   chk error $? "Could not copy Selenium-Config"
 }
 
+ie11_driver_reg() {
+  if [ "${vm_ie}" = "IE11" ]; then
+    log "Copy ie11_win32.reg..."
+    VBoxManage guestcontrol "${vm_name}" copyto "${tools_path}ie11_win32.reg" C:/Temp/ --username 'IEUser' --password 'Passw0rd!'
+    chk skip $? "Could not copy ie11_win32.reg"
+    ĺog "Setting ie11_win32.reg..."
+    VBoxManage guestcontrol "${vm_name}" execute --image "C:\\Windows\\Regedit.exe" --username 'IEUser' --password 'Passw0rd!' -- /s "C:\\Temp\\ie11_win32.reg"
+    chk skip $? "Could not set ie11_win32.reg"
+  fi
+}
+
 # Install Selenium
 install_selenium() {
   log "Creating C:/selenium/..."
@@ -385,6 +405,7 @@ install_selenium() {
   execute_os_specific config_selenium
   log "Prepare Selenium-Autostart..."
   execute_os_specific start_selenium
+  ie11_driver_reg
 }
 
 # Create a Snapshot; Disabled by default.
