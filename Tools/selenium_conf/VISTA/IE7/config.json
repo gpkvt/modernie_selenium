@@ -21,7 +21,7 @@
             "seleniumProtocol": "WebDriver"
         },
         {
-            "platform": "WINDOWS",
+            "platform": "VISTA",
             "browserName": "chrome",
             "maxInstances": 1,
             "seleniumProtocol": "WebDriver"
