@@ -57,10 +57,11 @@ vm_pretty_name=False
 fatal=False
 error=False
 warning=False
+log_file=$(basename ${appliance})
 
 # Write Logfile and STDOUT.
 log() {
-  echo ${1} | tee -a "${log_path}${vm_pretty_name}.log"
+  echo ${1} | tee -a "${log_path}${log_file}.log"
 }
 
 # Error-Handling.
@@ -95,8 +96,8 @@ sendmessage() {
     if [ "${error}" = "True" ]; then
       subject_prefix="ERROR"
     fi
-    cat "${log_path}${vm_pretty_name}.log" | mail -s "${subject_prefix}: ${vm_name}" ${mailto}
-    rm "${log_path}${vm_pretty_name}.log"
+    cat "${log_path}${log_file}.log" | mail -s "${subject_prefix}: ${vm_name}" ${mailto}
+    rm "${log_path}${log_file}.log"
   fi
 }
 
