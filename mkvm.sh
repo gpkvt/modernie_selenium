@@ -60,7 +60,7 @@ warning=False
 
 # Error-Handling.
 chk() {
-  if [ ${2} != 0 ]; then
+  if [ "${2}" != "0" ]; then
     if [ "${1}" = "fatal" ]; then
       log "[FATAL] ${3}"
       fatal=True
@@ -503,7 +503,7 @@ configure_clipboard() {
 # Check if --delete was given as second parameter to this script. The VM-Name is expected to be the third parameter.
 # If no VM-Name is given --delete will be ignored.
 if [ "${2}" = "--delete" ]; then
-  if [ -z "${3}" ]; then
+  if [ ! -z "${3}" ]; then
     delete_vm "${3}"
   else
     log "Delete VM"
