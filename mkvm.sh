@@ -125,7 +125,7 @@ execute_os_specific() {
 check_shutdown() {
   counter=0
   echo -n "Waiting for shutdown"
-  while $(VBoxManage showvminfo "${vm_name}" | grep -q 'running'); do
+  while $(VBoxManage showvminfo "${1}" | grep -q 'running'); do
     echo -n "."
     sleep 1
     let counter=counter+1
@@ -228,7 +228,7 @@ ex_disable_uac_w7() {
   VBoxManage startvm "${vm_name}" --type headless
   chk fatal $? "Could not start VM to disable UAC"
   waiting 60
-  check_shutdown
+  check_shutdown ${vm_name}
   log "Removing Disk..."
   VBoxManage storageattach "${vm_name}" --storagectl "IDE" --port 1 --device 0 --type dvddrive --medium none
   chk fatal $? "Could not unmount ${deuac_iso}"
@@ -429,7 +429,7 @@ shutdown_vm() {
   log "Shutting down..."
   VBoxManage guestcontrol "${1}" execute --image C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- /t 5 /s /f
   chk skip $? "Could not shut down"
-  check_shutdown
+  check_shutdown ${1}
 }
 
 # Remove the given Machine from VBox and delete all associated files. Shut down the VM beforehand, if needed.
