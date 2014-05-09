@@ -184,5 +184,5 @@ Acknowledgements
 
   * deuac.iso comes from https://github.com/tka/SeleniumBox
   * Inspired by https://github.com/xdissent/ievms
-  * modern.ie is a Service offered by Microsoft, so thanks for that.
+  * http://modern.ie is a Service offered by Microsoft, so thanks for that.
   * Thanks to https://github.com/dsuckau for the Selenium-Config Part
