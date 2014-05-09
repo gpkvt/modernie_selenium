@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Do not remove "sleep 30" as Virtualbox tend to act strange if you run to many commands in a short time.
+
 su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/xp/ie6/IE6\ -\ WinXP.ova --delete 'IE6 - WinXP'"
 sleep 30
 su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/xp/ie8/IE8\ -\ WinXP.ova --delete 'IE8 - WinXP'"
