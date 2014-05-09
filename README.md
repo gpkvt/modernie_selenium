@@ -53,8 +53,8 @@ Getting started
   * Clone this repository.
   * Get the Windows Java (JRE) Installer and Selenium Server Standalone (JAR) and put them beside the OVA-Files (or somewhere else).
   * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso).
-  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and put it in ```Tools/selenium_conf/```.
-  * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```Tools/selenium_conf/```.
+  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and put it in ```./Tools/selenium_conf/```.
+  * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```./Tools/selenium_conf/```.
   * Get Chrome and Firefox, place both in ```./Tools/```.
   * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```).
   * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details).
