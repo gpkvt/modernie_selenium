@@ -50,15 +50,15 @@ Getting started
 =================
 
   * Download the Appliance(s) you want to use from http://www.modern.ie/ and put the extracted OVA-Files on your Server. 
+  * Clone this repository.
   * Get the Windows Java (JRE) Installer and Selenium Server Standalone (JAR) and put them beside the OVA-Files (or somewhere else).
-  * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso)
-  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and put it in ```Tools/selenium_conf/```
-  * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```Tools/selenium_conf/```
-  * Clone this repository
-  * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```)
-  * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details)
-  * ```chmod +x mkvm.sh```
-  * Run ```mkvm.sh /path/to/your/appliance/foobar.ova```
+  * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso).
+  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and put it in ```Tools/selenium_conf/```.
+  * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```Tools/selenium_conf/```.
+  * Get Chrome and Firefox, place both in ```./Tools/```.
+  * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```).
+  * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details).
+  * Run ```mkvm.sh /path/to/your/appliance/foobar.ova```.
 
 Configure
 ================
