@@ -19,5 +19,5 @@ sleep 30
 
 su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/win8/ie10/IE10\ -\ Win8.ova --delete 'IE10 - Win8'"
 sleep 30
-su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/win8/ie11/IE11\ -\ Win8.ova --delete 'IE11 - Win8.1'"
+su vbox --shell=/bin/bash -c "/opt/mkvm.sh /opt/Appliances/win8/ie11/IE11\ -\ Win8.1.ova --delete 'IE11 - Win8.1'"
 sleep 30
