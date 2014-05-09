@@ -434,11 +434,11 @@ shutdown_vm() {
 
 # Remove the given Machine from VBox and delete all associated files. Shut down the VM beforehand, if needed.
 delete_vm() {
+  log "Removing ${1}..."
   if [ $(VBoxManage showvminfo "${1}" | grep -q 'running') ]; then
     shutdown_vm "${1}"
+    waiting 30
   fi
-  waiting 10
-  log "Removing ${1}..."
   VBoxManage unregistervm "${1}" --delete
   chk skip $? "Could not remove VM ${1}"
   waiting 10
