@@ -58,6 +58,11 @@ fatal=False
 error=False
 warning=False
 
+# Write Logfile and STDOUT.
+log() {
+  echo ${1} | tee -a "${log_path}${vm_pretty_name}.log"
+}
+
 # Error-Handling.
 chk() {
   if [ "${2}" != "0" ]; then
@@ -78,11 +83,6 @@ chk() {
   else
     log "[OK]"
   fi
-}
-
-# Write Logfile and STDOUT.
-log() {
-  echo ${1} | tee -a "${log_path}${vm_pretty_name}.log"
 }
 
 # Send Status-Mail.
