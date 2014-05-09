@@ -228,7 +228,7 @@ ex_disable_uac_w7() {
   VBoxManage startvm "${vm_name}" --type headless
   chk fatal $? "Could not start VM to disable UAC"
   waiting 60
-  check_shutdown ${vm_name}
+  check_shutdown "${vm_name}"
   log "Removing Disk..."
   VBoxManage storageattach "${vm_name}" --storagectl "IDE" --port 1 --device 0 --type dvddrive --medium none
   chk fatal $? "Could not unmount ${deuac_iso}"
