@@ -202,7 +202,7 @@ snapshot_vm() {
 # Remove the given Machine from VBox and delete all associated files. Shut down the VM beforehand, if needed.
 delete_vm() {
   log "Removing ${1}..."
-  if [ $(VBoxManage showvminfo "${1}" | grep -q 'running') ]; then
+  if [ ! $(VBoxManage showvminfo "${1}" | grep -q 'running') ]; then
     shutdown_vm "${1}"
     waiting 30
   fi
