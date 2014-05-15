@@ -179,8 +179,6 @@ Known Problems
 
 XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp\rename.bat``` to set the correct name. Restart the VM afterwards. This is only needed if you run more than one instance of the same Appliance.
 
-Sometime the VirtualBox guestcontrol-Commands are somewhat unreliable. If a machine doesn't work as expected just recreate it.
-
 Acknowledgements
 ================
 
