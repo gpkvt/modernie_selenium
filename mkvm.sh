@@ -80,7 +80,7 @@ execute() {
   if [ "$guestcontrol_error" = "0" ]; then
     return 0
   else
-    chk fatal 1 "Error running $@"
+    chk skip 1 "Error running $@"
   fi
 }
 
