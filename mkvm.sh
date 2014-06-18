@@ -122,7 +122,7 @@ sendmessage() {
       subject_prefix="ERROR"
     fi
     if [ -f "${log_path}False.log" ]; then
-       cat "${log_path}False.log" "${log_path}${vm_pretty_name}.log" /tmp/${vm_pretty_name}.log
+       cat "${log_path}False.log" "${log_path}${vm_pretty_name}.log" > /tmp/${vm_pretty_name}.log
        cat "/tmp/${vm_pretty_name}.log" | mail -s "${subject_prefix}: ${vm_name}" ${mailto}
        rm "${log_path}${vm_pretty_name}.log"
        rm "${log_path}False.log"
