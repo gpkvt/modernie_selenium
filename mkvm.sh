@@ -418,7 +418,7 @@ ie11_driver_reg() {
     execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${tools_path}ie11_win32.reg\" C:/Temp/ --username 'IEUser' --password 'Passw0rd!'"
     chk skip $? "Could not copy ie11_win32.reg"
     ĺog "Setting ie11_win32.reg..."
-    execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe\' --username 'IEUser' --password 'Passw0rd!' -- /s 'C:\\Temp\\ie11_win32.reg'"
+    execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- /s 'C:\\Temp\\ie11_win32.reg'"
     chk skip $? "Could not set ie11_win32.reg"
   fi
 }
