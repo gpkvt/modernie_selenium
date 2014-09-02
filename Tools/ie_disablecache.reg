@@ -1,4 +1,16 @@
 Windows Registry Editor Version 5.00
 
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main]
+“Start Page”=”about:blank”
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\CACHE]
+"Persistent"=dword:00000000
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Privacy]
+"ClearBrowsingHistoryOnExit"=dword:00000001
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings]
 "SyncMode5"=dword:00000003
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Url History]
+"DaysToKeep"=dword:00000000
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\Cache\Content]
+"CacheLimit"=dword:00002000
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Cache\Content]
+"CacheLimit"=dword:00002000
