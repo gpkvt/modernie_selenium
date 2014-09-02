@@ -10,7 +10,7 @@ firefox_exe="Firefox Setup 24.5.0esr.exe"
 chrome_exe="GoogleChromeStandaloneEnterprise.msi"
 selenium_jar="selenium-server-standalone-2.41.0.jar"
 
-nic_bridge="eth2"
+nic_bridge="eth0"
 vm_path="/srv/VMs/"
 vm_mem="768"
 vm_mem_xp="512"
@@ -417,7 +417,7 @@ ie11_driver_reg() {
     log "Copy ie11_win32.reg..."
     execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${tools_path}ie11_win32.reg\" C:/Temp/ --username 'IEUser' --password 'Passw0rd!'"
     chk skip $? "Could not copy ie11_win32.reg"
-    ĺog "Setting ie11_win32.reg..."
+    Äºog "Setting ie11_win32.reg..."
     execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- /s 'C:\\Temp\\ie11_win32.reg'"
     chk skip $? "Could not set ie11_win32.reg"
   fi
@@ -550,6 +550,27 @@ if [ "${2}" = "--delete" ]; then
   fi
 fi
 
+ex_activate_vm_xp() {
+  return true
+}
+
+ex_import_vm_w7() {
+  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image C:/Windows/system32/slmgr.vbs --username 'IEUser' --password 'Passw0rd!' -- /ato"
+  chk skip $? "Could not activate Windows"
+}
+
+ex_import_vm_wv() {
+  return true
+}
+
+ex_import_vm_w8() {
+  return true
+}
+
+activate_vm() {
+  execute_os_specific ex_activate_vm
+}
+
 get_vm_info
 import_vm
 set_network_config
@@ -565,6 +586,7 @@ install_firefox
 install_chrome
 install_selenium
 configure_clipboard
+activate_vm
 
 if [ "${create_snapshot}" = "True" ]; then
   shutdown_vm "${vm_name}"
