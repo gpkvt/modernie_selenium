@@ -554,16 +554,16 @@ ex_activate_vm_xp() {
   return true
 }
 
-ex_import_vm_w7() {
+ex_activate_vm_w7() {
   execute "VBoxManage guestcontrol \"${vm_name}\" execute --image C:/Windows/system32/slmgr.vbs --username 'IEUser' --password 'Passw0rd!' -- /ato"
   chk skip $? "Could not activate Windows"
 }
 
-ex_import_vm_wv() {
+ex_activate_vm_wv() {
   return true
 }
 
-ex_import_vm_w8() {
+ex_activate_vm_w8() {
   return true
 }
 
