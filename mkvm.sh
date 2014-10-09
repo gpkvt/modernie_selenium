@@ -551,20 +551,20 @@ if [ "${2}" = "--delete" ]; then
 fi
 
 ex_activate_vm_xp() {
-  return true
+  chk skip 0 "Nothing to do..."
 }
 
 ex_activate_vm_w7() {
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image cmd.exe --username 'IEUser' --password 'Passw0rd!' -- C:/Windows/system32/slmgr.vbs /ato"
+  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image cmd.exe --username 'IEUser' --password 'Passw0rd!' -- /C slmgr /ato"
   chk skip $? "Could not activate Windows"
 }
 
 ex_activate_vm_wv() {
-  return true
+  ex_activate_vm_w7
 }
 
 ex_activate_vm_w8() {
-  return true
+  ex_activate_vm_w7
 }
 
 activate_vm() {
