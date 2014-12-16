@@ -229,7 +229,7 @@ set_network_config() {
 # Find and set free Port for RDP-Connection.
 set_rdp_config() {
   log "Setting VRDE-Port ${vrdeport}..."
-  vrdeports=$(find "/srv/VMs/" -name *.vbox -print0 | xargs -0 grep "TCP/Ports" | awk -F'"' '{print $4}' | sort)
+  vrdeports=$(find "${vm_path}" -name *.vbox -print0 | xargs -0 grep "TCP/Ports" | awk -F'"' '{print $4}' | sort)
   for ((i=9000;i<=10000;i++)); do
     echo ${vrdeports} | grep -q ${i}
     if [[ $? -ne 0 ]]; then
