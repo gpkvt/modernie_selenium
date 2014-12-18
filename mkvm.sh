@@ -1,28 +1,10 @@
 #!/bin/bash
 
 # Debug
-#set -x
-#set -e
+set -x
+set -e
 
-# Config; See readme for details.
-java_exe="jre-7u55-windows-i586.exe"
-firefox_exe="Firefox Setup 24.5.0esr.exe"
-chrome_exe="GoogleChromeStandaloneEnterprise.msi"
-selenium_jar="selenium-server-standalone-2.41.0.jar"
-
-nic_bridge="eth0"
-vm_path="/srv/VMs/"
-vm_mem="768"
-vm_mem_xp="512"
-deuac_iso="/opt/Tools/deuac.iso"
-tools_path="/opt/Tools/"
-selenium_path="/opt/Tools/selenium_conf/"
-ie_cache_reg="/opt/Tools/ie_disablecache.reg"
-ie_protectedmode_reg="/opt/Tools/ie_protectedmode.reg"
-log_path="/home/vbox/"
-vbox_user="vbox"
-mailto="root"
-create_snapshot=False
+source config.sh
 
 # Basic-Checks.
 if [ "${1}" = "--help" ]; then
@@ -58,6 +40,16 @@ vm_pretty_name=False
 fatal=False
 error=False
 warning=False
+
+
+copyto() {
+  # $1 = filename, $2 = source directory, $3 destination directory
+  if [ ! -f "${2}${1}" ]
+  then
+    echo "Local file '${2}${1}' doesn't exist"
+  fi
+  execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${2}${1}\" \"${3}${1}\" --username 'IEUser' --password 'Passw0rd!'"
+}
 
 # Loop VBoxManage guestcontrol commands as they are unreliable.
 execute() {
@@ -320,9 +312,10 @@ disable_firewall() {
 
 # Create C:\Temp\; Most Functions who copy files to the VM are relying on this folder and will fail is he doesn't exists.
 create_temp_path() {
-  log "Creating C:/Temp/..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" createdirectory 'C:/Temp/' --username 'IEUser' --password 'Passw0rd!'"
-  chk fatal $? "Could not create C:/Temp/"
+  vm_temp="C:/Temp/"
+  log "Creating ${vm_temp}..."
+  execute "VBoxManage guestcontrol \"${vm_name}\" createdirectory '${vm_temp}' --username 'IEUser' --password 'Passw0rd!'"
+  chk fatal $? "Could not create ${vm_temp}"
 }
 
 # Apply registry changes to configure Internet Explorer settings (Protected-Mode, Cache)
