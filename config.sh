@@ -6,10 +6,13 @@ selenium_jar="selenium-server-standalone.jar"
 
 if [ $(uname) == "Darwin" ]
 then
+  # This makes sense on a mac
   nic_bridge="en0"
 else
+  # This works on Ubuntu
   nic_bridge="eth0"
 fi
+
 vm_path="VMs/"
 vm_mem="768"
 vm_mem_xp="512"
