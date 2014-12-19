@@ -216,13 +216,10 @@ set_network_config() {
   log "Setting network bridge ${nic_bridge}..."
   execute "VBoxManage modifyvm \"${vm_name}\" --nic1 bridged --bridgeadapter1 \"${nic_bridge}\""
   chk error $? "Could not set Bridge"
-}
-
-# Set VM Network-Config.
-set_network_config_nat() {
-  log "Setting NAT ${nic_bridge}..."
-  execute "VBoxManage modifyvm \"${vm_name}\" --natpf1 \"guestselenium,tcp,,4444,,4444\""
-  chk error $? "Could not set NAT"
+  # Create a hosts file
+  ifconfig en0 | grep "inet " |awk '{print $2 " hubhost"}' > /tmp/hosts
+  # Send it to the VM
+  copyto hosts /tmp/ "C:/Windows/System32/drivers/etc/hosts"
 }
 
 # Find and set free Port for RDP-Connection.
