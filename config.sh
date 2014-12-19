@@ -1,8 +1,8 @@
 # Config; See readme for details.
-java_exe="jre-8u25-windows-i586.exe"
-firefox_exe="Firefox Setup 34.0.5.exe"
-chrome_exe="ChromeStandaloneSetup.exe"
-selenium_jar="selenium-server-standalone-2.44.0.jar"
+java_exe="jre-windows-i586.exe"
+firefox_exe="firefox.exe"
+chrome_exe="chrome.exe"
+selenium_jar="selenium-server-standalone.jar"
 
 if [ $(uname) == "Darwin" ]
 then

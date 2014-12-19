@@ -1,6 +1,6 @@
 all: fetch fetch_vms
 
-fetch: Tools/selenium_conf/selenium-server-standalone.jar Tools/deuac.iso Tools/selenium_conf/IEDriverServer.exe
+fetch: Tools/selenium_conf/selenium-server-standalone.jar Tools/deuac.iso Tools/selenium_conf/IEDriverServer.exe Tools/jre-windows-i586.exe Tools/firefox.exe Tools/chrome.exe
 
 fetch_vms: VMs/IE11\ -\ Win7.ova VMs/IE8\ -\ Win7.ova
 
@@ -28,6 +28,16 @@ Tools/deuac.iso:
 
 Tools/selenium_conf/IEDriverServer.exe:
 	curl -o Tools/selenium_conf/IEDriverServer.zip -L http://selenium-release.storage.googleapis.com/2.44/IEDriverServer_Win32_2.44.0.zip
-	curl -o Tools/selenium_conf/IEDriverServer.zip -L http://selenium-release.storage.googleapis.com/2.44/IEDriverServer_x64_2.44.0.zip
+	#curl -o Tools/selenium_conf/IEDriverServer.zip -L http://selenium-release.storage.googleapis.com/2.44/IEDriverServer_x64_2.44.0.zip
 	cd Tools/selenium_conf && unzip IEDriverServer.zip
 
+Tools/jre-windows-i586.exe:
+	echo "You may need to download Java for Windows from http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html "
+	test -f $(ls jre*.exe|head -n 1) && mv jre-*-windows-i586.exe $@
+
+Tools/firefox.exe:
+	curl -o $@ -L "https://download.mozilla.org/?product=firefox-34.0.5-SSL&os=win&lang=en-GB"
+
+Tools/chrome.exe:
+	echo "You may need to download chrome for windows from https://www.google.com/chrome/browser/desktop/index.html?standalone=1"
+	test -f ChromeStandaloneSetup.exe && mv ChromeStandaloneSetup.exe $@
