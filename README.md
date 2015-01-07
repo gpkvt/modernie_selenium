@@ -200,4 +200,4 @@ Acknowledgements
   * Inspired by https://github.com/xdissent/ievms
   * http://modern.ie is a Service offered by Microsoft, so thanks for that.
   * Thanks to https://github.com/dsuckau for the Selenium-Config Part
-  * Thanks to https://github.com/conceptsandtraining for the original repo I've built on top of
+  * Thanks to [@tobyontour](https://github.com/tobyontour) for [pull request #8](https://github.com/conceptsandtraining/modernie_selenium/pull/8)
