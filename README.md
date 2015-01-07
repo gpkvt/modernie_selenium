@@ -171,6 +171,11 @@ create_snapshot=False
 
 If ```True``` a snapshot will be created after all changes have been made.
 
+Selenium Config
+===============
+
+The supplied Selenium-Node-Configs (see ```Tools/selenium_conf/*/config.json```) assumes the Hostname ```hubhost``` for your Selenium-Hub. So you should set up your hostfiles/DNS-Services accordingly or change ```"hubHost": "hubhost"```, in all needed ```config.json``` files.
+
 Usage
 =====
 
@@ -209,5 +214,5 @@ Acknowledgements
   * deuac.iso comes from https://github.com/tka/SeleniumBox
   * Inspired by https://github.com/xdissent/ievms
   * http://modern.ie is a Service offered by Microsoft, so thanks for that.
-  * Thanks to https://github.com/dsuckau for the Selenium-Config Part
+  * Thanks to [@dsuckau](https://github.com/dsuckau) for the Selenium-Config Part
   * Thanks to [@tobyontour](https://github.com/tobyontour) for [pull request #8](https://github.com/conceptsandtraining/modernie_selenium/pull/8)
