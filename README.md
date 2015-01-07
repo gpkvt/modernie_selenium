@@ -171,10 +171,12 @@ create_snapshot=False
 
 If ```True``` a snapshot will be created after all changes have been made.
 
-Selenium Config
-===============
+Selenium Config / Hub Hostname
+==============================
 
 The supplied Selenium-Node-Configs (see ```Tools/selenium_conf/*/config.json```) assumes the Hostname ```hubhost``` for your Selenium-Hub. So you should set up your hostfiles/DNS-Services accordingly or change ```"hubHost": "hubhost"```, in all needed ```config.json``` files.
+
+Check out ```updateip.sh``` if you want to modify the Hostfiles (change ```nic_bridge``` if needed; be aware that the VBox-Host is expected to be your Selenium-Hub as well).
 
 Usage
 =====
