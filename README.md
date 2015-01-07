@@ -193,6 +193,16 @@ Known Problems
 
 XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp\rename.bat``` to set the correct name. Restart the VM afterwards. This is only needed if you run more than one instance of the same Appliance.
 
+In the Spotlight
+================
+
+Thanks a lot for mentioning modernie_selenium!
+
+  * Automated Testing by Ben Emmons<br>
+    http://itsummit.arizona.edu/sites/default/files/2014/emmons-ben-automated-testing-final.pdf
+  * Testen von Rich-Web-UI (German) by Mark Michaelis<br>
+    http://de.slideshare.net/MarkMichaelis2/sokahh-testing
+
 Acknowledgements
 ================
 
