@@ -70,6 +70,8 @@ You can get a lot of the VMs (currently IE8-11 on Windows 7) using this command:
 make fetch_vms
 ```
 
+Please note: The makefile will load modern.ie Appliances for Mac. Adjust the Download-URLs if you need the Linux-Versions.
+
 Configure
 =========
 
