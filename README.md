@@ -7,6 +7,8 @@ This script allows to delete and create virtual Windows-Machines using Images fr
 
 As the modern.ie-Machines refuses to run more than 30-90 Days (at least for more than an hour) we remove the machines on a regular basis and recreate the original Appliance with all changes needed to run Selenium.
 
+Use it with your favored test runner (maybe [Karma](http://karma-runner.github.io/) or [Nightwatch.js](http://nightwatchjs.org)) to automate JavaScript tests in real browsers on your own Selenium Grid. Other WebDriver language bindings (Python, Java) should work as well.
+
 Prerequisites
 =================
 
