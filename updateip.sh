@@ -1,5 +1,7 @@
 #!/bin/bash
 
+nic_bridge="en0"
+
 # Init; Do not change.
 appliance=${1}
 vm_name=False
@@ -25,10 +27,16 @@ copyto() {
   execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${2}${1}\" \"${3}${1}\" --username 'IEUser' --password 'Passw0rd!'"
 }
 
-
 get_vm_info
 # Create a hosts file
-ifconfig en0 | grep "inet " |awk '{print $2 " hubhost"}' > /tmp/hosts
+if [ $(uname) == "Darwin" ]
+then
+  # This makes sense on a mac
+  ifconfig ${nic_bridge} | grep "inet " | awk '{print $2 " hubhost"}' > /tmp/hosts
+else
+  # This works on Ubuntu
+  ifconfig ${nic_bridge} | grep "inet " | awk '{print $2 " hubhost"}' | sed 's/addr://' > /tmp/hosts
+fi
 # Send it to the VM
 copyto hosts /tmp/ "C:/Windows/System32/drivers/etc/hosts"
 
