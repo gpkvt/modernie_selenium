@@ -73,9 +73,7 @@ make fetch_vms
 Configure
 =========
 
-I've changed this from the original repository so that it uses a separate config script so that you can keep a local config script and not have to hack the main file.
-
-So look in ```config.sh```
+Adjust ```config.sh``` to your needs. See below for details.
 
 If you use the Makefile to get the binary files then you shouldn't have to alter the config script.
 
