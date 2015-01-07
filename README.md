@@ -58,7 +58,7 @@ Getting started
   * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```./Tools/selenium_conf/```.
   * Get Chrome and Firefox, place both in ```./Tools/```.
   * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```).
-  * Edit the Config-Section in mkvm.sh so it fits your needs (see below for details).
+  * Edit ```config.sh``` so it fits your needs (see below for details).
   * Run ```mkvm.sh /path/to/your/appliance/foobar.ova```.
 
 Fetching the Appliances
