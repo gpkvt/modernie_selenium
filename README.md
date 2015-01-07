@@ -196,8 +196,10 @@ XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp
 In the Spotlight
 ================
 
-  * http://itsummit.arizona.edu/sites/default/files/2014/emmons-ben-automated-testing-final.pdf
-  * http://de.slideshare.net/MarkMichaelis2/sokahh-testing
+Thanks a lot for mentioning modernie_selenium!
+
+  * Automated Testing by Ben Emmons (http://itsummit.arizona.edu/sites/default/files/2014/emmons-ben-automated-testing-final.pdf)
+  * Testen von Rich-Web-UI (German) by Mark Michaelis (http://de.slideshare.net/MarkMichaelis2/sokahh-testing)
 
 Acknowledgements
 ================
