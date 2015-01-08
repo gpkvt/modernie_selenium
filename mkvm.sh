@@ -312,8 +312,7 @@ disable_firewall() {
 
 # Create C:\Temp\; Most Functions who copy files to the VM are relying on this folder and will fail is he doesn't exists.
 create_temp_path() {
-  #vm_temp="C:\\Temp\\"
-  vm_temp="C:/Users/IEUser/Temp/"
+  vm_temp="C:\\Temp\\"
   log "Creating ${vm_temp}..."
   execute "VBoxManage guestcontrol \"${vm_name}\" createdirectory \"${vm_temp}\" --username 'IEUser' --password 'Passw0rd!'"
   chk fatal $? "Could not create ${vm_temp}"
