@@ -211,6 +211,8 @@ Thanks a lot for mentioning modernie_selenium!
     http://itsummit.arizona.edu/sites/default/files/2014/emmons-ben-automated-testing-final.pdf
   * Testen von Rich-Web-UI (German) by Mark Michaelis<br>
     http://de.slideshare.net/MarkMichaelis2/sokahh-testing
+  * DailyJS introduction<br>
+    http://dailyjs.com/2015/01/13/testharness-call-modern/
 
 Acknowledgements
 ================
