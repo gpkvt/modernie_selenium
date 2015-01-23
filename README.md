@@ -213,6 +213,8 @@ Thanks a lot for mentioning modernie_selenium!
     http://de.slideshare.net/MarkMichaelis2/sokahh-testing
   * DailyJS introduction<br>
     http://dailyjs.com/2015/01/13/testharness-call-modern/
+  * Japanese JavaScript Blog<br>
+    http://jser.info/2015/01/13/6to5-jspm-refactoring-javascript/
 
 Acknowledgements
 ================
