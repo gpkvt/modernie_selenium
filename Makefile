@@ -5,7 +5,7 @@ fetch: Tools/selenium_conf/selenium-server-standalone.jar Tools/deuac.iso Tools/
 fetch_vms: VMs/IE11\ -\ Win7.ova VMs/IE8\ -\ Win7.ova VMs/IE10\ -\ Win7.ova VMs/IE9\ -\ Win7.ova
 
 VMs/IE11\ -\ Win7.ova:
-	curl -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE11/Windows/IE11.Win7.For.Windows.VirtualBox.zip"
+	curl -O -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE11/Windows/IE11.Win7.For.Windows.VirtualBox.zip"
 	unzip IE11.Win7.For.Windows.VirtualBox.zip
 	mkdir VMs || true
 	mv IE11\ -\ Win7.ova VMs
@@ -13,21 +13,21 @@ VMs/IE11\ -\ Win7.ova:
 
 
 VMs/IE10\ -\ Win7.ova:
-	curl -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE10/Windows/IE10.Win7.For.Windows.VirtualBox.zip"
+	curl -O -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE10/Windows/IE10.Win7.For.Windows.VirtualBox.zip"
 	unzip IE10.Win7.For.Windows.VirtualBox.zip
 	mkdir VMs || true
 	mv IE10\ -\ Win7.ova VMs
 	rm IE10.Win7.For.Windows.VirtualBox.zip
 
 VMs/IE9\ -\ Win7.ova:
-	curl -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE9/Windows/IE9.Win7.For.Windows.VirtualBox.zip"
+	curl -O -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE9/Windows/IE9.Win7.For.Windows.VirtualBox.zip"
 	unzip IE9.Win7.For.Windows.VirtualBox.zip
 	mkdir VMs || true
 	mv IE9\ -\ Win7.ova VMs
 	rm IE9.Win7.For.Windows.VirtualBox.zip
 
 VMs/IE8\ -\ Win7.ova:
-	curl -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE8/Windows/IE8.Win7.For.Windows.VirtualBox.zip"
+	curl -O -L "https://az412801.vo.msecnd.net/vhd/VMBuild_20141027/VirtualBox/IE8/Windows/IE8.Win7.For.Windows.VirtualBox.zip"
 	unzip IE8.Win7.For.Windows.VirtualBox.zip
 	mkdir VMs || true
 	mv IE8\ -\ Win7.ova VMs
