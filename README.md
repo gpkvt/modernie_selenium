@@ -26,10 +26,11 @@ What it does
   * Disable UAC
   * Disable Windows-Firewall
   * Rename the VM (Hostname)
+  * Update windows hosts file with hub ip
   * Configures IE Protected-Mode to work with Selenium
   * Disables IE Cache
   * Install Java
-  * Install Selenium
+  * Install Selenium node and register to hub
  
 
 What it doesn't do
@@ -156,9 +157,7 @@ If ```True``` a snapshot will be created after all changes have been made.
 Selenium Config / Hub Hostname
 ==============================
 
-The supplied Selenium-Node-Configs (see ```Tools/selenium_conf/*/config.json```) assumes the Hostname ```hubhost``` for your Selenium-Hub. So you should set up your hostfiles/DNS-Services accordingly or change ```"hubHost": "hubhost"```, in all needed ```config.json``` files.
-
-Check out ```updateip.sh``` if you want to modify the Hostfiles (change ```nic_bridge``` if needed; be aware that the VBox-Host is expected to be your Selenium-Hub as well).
+Hub should be running on host OS, as scripts fetch the ip of host os and put that into hosts file of windows vm. Need to change the script to fetch the ip of docker hub 
 
 Usage
 =====
@@ -171,7 +170,7 @@ make fetch
 Get specific VM image[Check options in make file]:
 
 ```
-make VMs/IE11\ -\ Win7.ova
+make IE11-Win7
 ```
 
 To import the IE11-Win7 Appliance simply run:
@@ -193,4 +192,5 @@ TODO
 * Network Confguration
 * Jre installation link broken as Oracle has included has in the url[Fix: JRE exe is on Tools directory]
 * Windows silent activation
+* Need to change the script to fetch the ip of docker hub and update in windows hosts file
 

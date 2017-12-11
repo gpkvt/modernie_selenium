@@ -547,6 +547,23 @@ configure_clipboard() {
   waiting 5
 }
 
+update_hub_ip() {
+   # Create a hosts file
+   log "Updating hub ip in guest VM hosts file..."
+if [ $(uname) == "Darwin" ]
+then
+  # This makes sense on a mac
+  ifconfig ${nic_bridge} | grep "inet " | awk '{print $2 " hubhost"}' > ${tools_path}/hosts
+else
+  # This works on Ubuntu
+  ifconfig ${nic_bridge} | grep "inet " | awk '{print $2 " hubhost"}' | sed 's/addr://' > ${tools_path}/hosts
+fi
+# Send it to the VM
+copyto hosts ${tools_path} "C:/Windows/System32/drivers/etc/"
+chk skip $? "Could not update hub ip in guest VM hosts file"
+  waiting 5
+}
+
 # Check if --delete was given as second parameter to this script. The VM-Name is expected to be the third parameter.
 # If no VM-Name is given --delete will be ignored.
 if [ "${2}" = "--delete" ]; then
@@ -594,6 +611,7 @@ install_java
 #install_chrome
 install_selenium
 configure_clipboard
+update_hub_ip
 #activate_vm
 
 if [ "${create_snapshot}" = "True" ]; then

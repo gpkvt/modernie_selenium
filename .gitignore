@@ -3,6 +3,7 @@ Tools/*.exe
 Tools/*.iso
 Tools/*.msi
 Tools/*.bat
+Tools/hosts
 !Tools/jre-windows-i586.exe
 Tools/selenium_conf/*.exe
 Tools/selenium_conf/*.zip
