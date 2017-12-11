@@ -7,26 +7,19 @@ This script allows to delete and create virtual Windows-Machines using Images fr
 
 As the modern.ie-Machines refuses to run more than 30-90 Days (at least for more than an hour) we remove the machines on a regular basis and recreate the original Appliance with all changes needed to run Selenium.
 
-Use it with your favored test runner (maybe [Karma](http://karma-runner.github.io/) or [Nightwatch.js](http://nightwatchjs.org)) to automate JavaScript tests in real browsers on your own Selenium Grid. Other WebDriver language bindings (Python, Java) should work as well.
 
 Prerequisites
 =================
 
-  * modern.ie VBox-Appliances
-  * VirtualBox (tested with 4.3)
+  * VirtualBox (tested with 5.0.30)
   * VirtualBox Extension Pack
   * Selenium-Hub
-  * deuac.iso
-  * IEDriverServer (for Selenium)
-  * chromedriver (for Selenium)
-  * Java JRE (for Selenium)
-  * Selenium Standalone Server
-  * Optional: phpVirtualBox
+  
 
 What it does
 =================
 
-  * Import modern.ie Appliances to VirtualBox
+  * Import modern.ie VM images to VirtualBox
   * Configure VM Network-Settings
   * Configure VM RDP-Port-Setting (VRDE)
   * Configure VM Clipboard behaviour
@@ -36,41 +29,28 @@ What it does
   * Configures IE Protected-Mode to work with Selenium
   * Disables IE Cache
   * Install Java
-  * Install Firefox
-  * Install Chrome
   * Install Selenium
-  * Reports via E-Mail
+ 
 
 What it doesn't do
 ==================
 
-  * Download modern.ie Appliances
   * Set up VirtualBox
 
 Getting started
 ===============
 
-  * Clone this repository.
-  * Download the Appliance(s) you want to use from http://www.modern.ie/ and put the extracted OVA-Files on your Server. You can use the Makefile (see below)
-  * Get the Windows Java (JRE) Installer and Selenium Server Standalone (JAR) and put them beside the OVA-Files (or somewhere else).
-  * Get deuac.iso (https://github.com/tka/SeleniumBox/blob/master/deuac.iso).
-  * Get IEDriverServer.exe (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and put it in ```./Tools/selenium_conf/```.
-  * Get chromedriver.exe (https://code.google.com/p/selenium/wiki/ChromeDriver) and put it in ```./Tools/selenium_conf/```.
-  * Get Chrome and Firefox, place both in ```./Tools/```.
-  * Edit the Selenium Config-Files (```./Tools/Selenium_conf/*/config.json```).
-  * Edit ```config.sh``` so it fits your needs (see below for details).
+  * Run make all
   * Run ```mkvm.sh /path/to/your/appliance/foobar.ova```.
 
 Fetching the Appliances
 =======================
 
-You can get a lot of the VMs (currently IE8-11 on Windows 7) using this command:
+Get all VM images using this command:
 
 ```
 make fetch_vms
 ```
-
-Please note: The makefile will load modern.ie Appliances for Mac. Adjust the Download-URLs if you need the Linux-Versions.
 
 Configure
 =========
@@ -183,44 +163,34 @@ Check out ```updateip.sh``` if you want to modify the Hostfiles (change ```nic_b
 Usage
 =====
 
-To import the IE6-WinXP Appliance simply run:
+Run below command:
 
 ```
-mkvm.sh VMs/IE6\ -\ WinXP.ova
+make fetch
+```
+Get specific VM image[Check options in make file]:
+
+```
+make VMs/IE11\ -\ Win7.ova
 ```
 
-If you already have an IE6-WinXP-Instance - and want to recreate it - run:
+To import the IE11-Win7 Appliance simply run:
 
 ```
-mkvm.sh VMs/IE6\ -\ WinXP.ova --delete "IE6 - WinXP"
+mkvm.sh VMs/IE11\ -\ Win7.ova
 ```
 
-We recommend to use a CronJob to recreate the VMs on a regular basis. See ```mkvm_cronjob```. To avoid too much load on the Host we use a Wrapper-Script ```mkvm_cron.sh``` so that only one Appliance gets imported after another.
+If you already have an IE11-Win7-Instance - and want to recreate it - run:
 
-Known Problems
+```
+mkvm.sh VMs/IE11\ -\ Win7.ova --delete "IE11 - Win7"
+```
+
+
+TODO
 ==============
 
-XP-Machines doesn't set their new hostname automatically. You can use ```C:\Temp\rename.bat``` to set the correct name. Restart the VM afterwards. This is only needed if you run more than one instance of the same Appliance.
+* Network Confguration
+* Jre installation link broken as Oracle has included has in the url[Fix: JRE exe is on Tools directory]
+* Windows silent activation
 
-In the Spotlight
-================
-
-Thanks a lot for mentioning modernie_selenium!
-
-  * Automated Testing by Ben Emmons<br>
-    http://itsummit.arizona.edu/sites/default/files/2014/emmons-ben-automated-testing-final.pdf
-  * Testen von Rich-Web-UI (German) by Mark Michaelis<br>
-    http://de.slideshare.net/MarkMichaelis2/sokahh-testing
-  * DailyJS introduction<br>
-    http://dailyjs.com/2015/01/13/testharness-call-modern/
-  * Japanese JavaScript Blog<br>
-    http://jser.info/2015/01/13/6to5-jspm-refactoring-javascript/
-
-Acknowledgements
-================
-
-  * deuac.iso comes from https://github.com/tka/SeleniumBox
-  * Inspired by https://github.com/xdissent/ievms
-  * http://modern.ie is a Service offered by Microsoft, so thanks for that.
-  * Thanks to [@dsuckau](https://github.com/dsuckau) for the Selenium-Config Part
-  * Thanks to [@tobyontour](https://github.com/tobyontour) for [pull request #8](https://github.com/conceptsandtraining/modernie_selenium/pull/8)

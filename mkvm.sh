@@ -48,13 +48,13 @@ copyto() {
   then
     echo "Local file '${2}${1}' doesn't exist"
   fi
-  execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${2}${1}\" \"${3}${1}\" --username 'IEUser' --password 'Passw0rd!'"
+  execute "VBoxManage guestcontrol \"${vm_name}\" copyto --target-directory \"${3}${1}\" \"${2}${1}\" --username 'IEUser' --password 'Passw0rd!'"
 }
 
 # Loop VBoxManage guestcontrol commands as they are unreliable.
 execute() {
   counter=0
-  while [ $counter -lt 10 ]; do
+  while [ $counter -lt 3 ]; do
 
     echo "Running $@"
     bash -c "$@"
@@ -287,13 +287,13 @@ start_vm() {
 # Internal: Helper-Functions to disable the Windows Firewall (called by disable_firewall)
 ex_disable_firewall_xp() {
   log "Disabling Windows XP Firewall..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:/windows/system32/netsh.exe' --username 'IEUser' --password 'Passw0rd!' -- firewall set opmode mode=DISABLE"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:/windows/system32/netsh.exe' --username 'IEUser' --password 'Passw0rd!' -- netsh/arg0 firewall set opmode mode=DISABLE"
   chk error $? "Could not disable Firewall"
 }
 
 ex_disable_firewall_w7() {
   log "Disabling Windows Firewall..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:/windows/system32/netsh.exe' --username 'IEUser' --password 'Passw0rd!' -- advfirewall set allprofiles state off"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:/windows/system32/netsh.exe' --username 'IEUser' --password 'Passw0rd!' -- netsh/arg0 advfirewall set allprofiles state off"
   chk error $? "Could not disable Firewall"
 }
 
@@ -312,7 +312,7 @@ disable_firewall() {
 
 # Create C:\Temp\; Most Functions who copy files to the VM are relying on this folder and will fail is he doesn't exists.
 create_temp_path() {
-  vm_temp="C:\\Temp\\"
+  vm_temp="C:/Temp/"
   log "Creating ${vm_temp}..."
   execute "VBoxManage guestcontrol \"${vm_name}\" createdirectory \"${vm_temp}\" --username 'IEUser' --password 'Passw0rd!'"
   chk fatal $? "Could not create ${vm_temp}"
@@ -323,12 +323,12 @@ set_ie_config() {
   log "Apply IE Protected-Mode Settings..."
   #execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${ie_protectedmode_reg}\" "${vm_temp}" --username 'IEUser' --password 'Passw0rd!'"
   copyto "${ie_protectedmode_reg}" "$tools_path" "$vm_temp"
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- /s '${vm_temp}ie_protectedmode.reg'"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- Regedit/arg0 /s '${vm_temp}ie_protectedmode.reg'"
   chk error $? "Could not apply IE Protected-Mode-Settings"
   log "Disabling IE-Cache..."
   #execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${ie_cache_reg}\" "${vm_temp}" --username 'IEUser' --password 'Passw0rd!'"
   copyto ie_disablecache.reg "${tools_path}" "${vm_temp}"
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- /s '${vm_temp}ie_disablecache.reg'"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- Regedit/arg0 /s '${vm_temp}ie_disablecache.reg'"
   chk error $? "Could not disable IE-Cache"
 }
 
@@ -337,7 +337,7 @@ install_java() {
   log "Installing Java..."
   #execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${tools_path}${java_exe}\" "${vm_temp}" --username 'IEUser' --password 'Passw0rd!'"
   copyto "${java_exe}" "${tools_path}" "${vm_temp}"
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image \"${vm_temp}${java_exe}\" --username 'IEUser' --password 'Passw0rd!' -- /s"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe \"${vm_temp}${java_exe}\" --username 'IEUser' --password 'Passw0rd!' -- ${java_exe}/args0 /s"
   chk error $? "Could not install Java"
   waiting 120
 }
@@ -346,7 +346,7 @@ install_java() {
 install_firefox() {
   log "Installing Firefox..."
   copyto "${firefox_exe}" "${tools_path}" "${vm_temp}"
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image \"${vm_temp}${firefox_exe}\" --username 'IEUser' --password 'Passw0rd!' -- /S"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe \"${vm_temp}${firefox_exe}\" --username 'IEUser' --password 'Passw0rd!' -- ${firefox_exe}/args0 /S"
   chk error $? "Could not install Firefox"
   waiting 120
 }
@@ -365,7 +365,7 @@ install_chrome() {
   log "Installing Chrome..."
   #execute "VBoxManage guestcontrol \"${vm_name}\" copyto \"${tools_path}${chrome_exe}\" "${vm_temp}" --username 'IEUser' --password 'Passw0rd!'"
   copyto "${chrome_exe}" "${tools_path}" "${vm_temp}"
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:/Windows/System32/msiexec.exe' --username 'IEUser' --password 'Passw0rd!' -- /qn /i \"${vm_temp}${chrome_exe}\""
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:/Windows/System32/msiexec.exe' --username 'IEUser' --password 'Passw0rd!' -- msiexec/args0 /qn /i \"${vm_temp}${chrome_exe}\""
   chk error $? "Could not install Chrome"
   waiting 120
   install_chrome_driver
@@ -423,7 +423,7 @@ ie11_driver_reg() {
     copyto ie11_win32.reg "${tools_path}" "${vm_temp}"
     chk skip $? "Could not copy ie11_win32.reg"
     log "Setting ie11_win32.reg..."
-    execute "VBoxManage guestcontrol \"${vm_name}\" execute --image 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- /s '${vm_temp}ie11_win32.reg'"
+    execute "VBoxManage guestcontrol \"${vm_name}\" run --exe 'C:\\Windows\\Regedit.exe' --username 'IEUser' --password 'Passw0rd!' -- Regedit/arg0 /s '${vm_temp}ie11_win32.reg'"
     chk skip $? "Could not set ie11_win32.reg"
   fi
 }
@@ -459,7 +459,7 @@ snapshot_vm() {
 # shutdown.exe is used because VBox ACPI-Functions are sometimes unreliable with XP-VMs.
 reboot_vm() {
   log "Rebooting..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- /t 5 /r /f"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- shutdown/args0 /t 5 /r /f"
   chk skip $? "Could not reboot"
   waiting 90
 }
@@ -467,14 +467,14 @@ reboot_vm() {
 # Shutdown the VM and control the success via showvminfo; shutdown.exe is used because VBox ACPI-Functions are sometimes unreliable with XP-VMs.
 shutdown_vm() {
   log "Shutting down..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- /t 5 /s /f"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- shutdown/args0 /t 5 /s /f"
   chk skip $? "Could not shut down"
   check_shutdown
 }
 
 shutdown_vm_for_removal() {
   log "Shutting down for removal..."
-  execute "VBoxManage guestcontrol \"${remove_vm}\" execute --image C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- /t 5 /s /f"
+  execute "VBoxManage guestcontrol \"${remove_vm}\" run --exe C:/Windows/system32/shutdown.exe --username 'IEUser' --password 'Passw0rd!' -- shutdown/args0 /t 5 /s /f"
   chk skip $? "Could not shut down for removal"
 }
 
@@ -528,14 +528,14 @@ rename_vm() {
     ;;
   esac
   log "Preparing to change Hostname ${vm_orig_name} to ${vm_pretty_name}..."
-  echo 'c:\windows\system32\wbem\wmic.exe computersystem where caption="'${vm_orig_name}'" call rename "'${vm_pretty_name}'"' > /tmp/rename.bat
+  echo 'c:\windows\system32\wbem\wmic.exe computersystem where caption="'${vm_orig_name}'" call rename "'${vm_pretty_name}'"' > ${tools_path}/rename.bat
   chk skip $? "Could not create rename.bat"
   log "Copy rename.bat..."
   #execute "VBoxManage guestcontrol \"${vm_name}\" copyto '/tmp/rename.bat' "${vm_temp}" --username 'IEUser' --password 'Passw0rd!'"
-  copyto rename.bat '/tmp/' "${vm_temp}"
+  copyto rename.bat "${tools_path}" "${vm_temp}"
   chk skip $? "Could not copy rename.bat"
   log "Launch rename.bat..."
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image '${vm_temp}rename.bat' --username 'IEUser' --password 'Passw0rd!'"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe '${vm_temp}rename.bat' --username 'IEUser' --password 'Passw0rd!'"
   chk skip $? "Could not change Hostname"
   waiting 5
 }
@@ -563,7 +563,7 @@ ex_activate_vm_xp() {
 }
 
 ex_activate_vm_w7() {
-  execute "VBoxManage guestcontrol \"${vm_name}\" execute --image cmd.exe --username 'IEUser' --password 'Passw0rd!' -- /C slmgr /ato"
+  execute "VBoxManage guestcontrol \"${vm_name}\" run --exe cmd.exe --username 'IEUser' --password 'Passw0rd!' -- cmd/args0 /C slmgr /ipk 33PXH-7Y6KF-2VJC9-XBBR8-HVTHH"
   chk skip $? "Could not activate Windows"
 }
 
@@ -590,11 +590,11 @@ create_temp_path
 rename_vm
 set_ie_config
 install_java
-install_firefox
-install_chrome
+#install_firefox
+#install_chrome
 install_selenium
 configure_clipboard
-activate_vm
+#activate_vm
 
 if [ "${create_snapshot}" = "True" ]; then
   shutdown_vm "${vm_name}"
