@@ -13,18 +13,6 @@
             "version": 8,
             "maxInstances": 1,
             "seleniumProtocol": "WebDriver"
-        },
-        {
-            "platform": "WINDOWS",
-            "browserName": "firefox",
-            "maxInstances": 1,
-            "seleniumProtocol": "WebDriver"
-        },
-        {
-            "platform": "WINDOWS",
-            "browserName": "chrome",
-            "maxInstances": 1,
-            "seleniumProtocol": "WebDriver"
         }
     ]
 }
